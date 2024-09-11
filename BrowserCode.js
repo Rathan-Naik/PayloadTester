@@ -22,17 +22,6 @@ async function sendRequest(payload) {
   }
 }
 
-// Function to load payload from JSON file
-async function loadPayload() {
-  try {
-    const response = await fetch('path/to/payload.json'); // Replace with the actual path
-    const payload = await response.json();
-    return payload;
-  } catch (error) {
-    console.error('Error loading payload: ', error.message);
-  }
-}
-
 // Function to generate full paths of all fields (including nested ones)
 function getFieldPaths(obj, parentPath = '') {
   let paths = [];
@@ -64,7 +53,8 @@ function removeFieldByPath(payload, path) {
 
 // Function to test the payload with each field removed
 async function testFieldsForRequired() {
-  const fullPayload = await loadPayload();
+  // Access the global payload defined in payload.js
+  const fullPayload = window.payload;
   if (!fullPayload) return;
 
   // Get all field paths (including nested fields)
